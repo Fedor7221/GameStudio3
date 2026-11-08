@@ -17,6 +17,16 @@ public class ObjectSpawner : MonoBehaviour
     private float enemyTimer = 0f;
     private float pearlTimer = 0f;
 
+    public GameObject extraEnemyPrefab;
+    public float extraEnemySpawnInterval = 7f;
+    public float extraEnemyFirstDelay = 4f; // Breathing room at the start of the level
+    private float extraEnemyTimer;
+
+    void Start()
+    {
+        extraEnemyTimer = extraEnemyFirstDelay;
+    }
+
     public CameraScroll mainCameraScript;
 
     // Stop spawning when boss is triggered
@@ -42,6 +52,17 @@ public class ObjectSpawner : MonoBehaviour
                 {
                     SpawnObject(enemyPrefab);
                     enemyTimer = enemySpawnInterval;
+                }
+            }
+
+            // 2b. Level-specific extra enemy (Level 2: Dark Chaser). Leave empty in Level 1.
+            if (extraEnemyPrefab != null)
+            {
+                extraEnemyTimer -= Time.deltaTime;
+                if (extraEnemyTimer <= 0f)
+                {
+                    SpawnObject(extraEnemyPrefab);
+                    extraEnemyTimer = extraEnemySpawnInterval;
                 }
             }
 

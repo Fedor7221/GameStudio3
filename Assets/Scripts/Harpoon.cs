@@ -5,6 +5,7 @@ public class Harpoon : MonoBehaviour
     public float speed = 15f;
     public float lifeTime = 3f;
     public Vector3 direction = Vector3.up;
+    public GameObject hitEffectPrefab; // Optional: explosion / bubble burst particle
 
     void Start()
     {
@@ -23,8 +24,26 @@ public class Harpoon : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // Destroy if it hits an Enemy or Boss
-        if (other.CompareTag("Enemy") || other.CompareTag("Boss"))
+        // Enemies pop in one hit (the boss counts its own hits in BossAI)
+        if (other.CompareTag("Enemy"))
+        {
+            GameObject enemy = other.attachedRigidbody != null ? other.attachedRigidbody.gameObject : other.gameObject;
+
+            // Pufferfish bursts with its own animation and blast
+            PufferEnemy puffer = enemy.GetComponentInParent<PufferEnemy>();
+            if (puffer != null)
+            {
+                puffer.Burst();
+                Destroy(gameObject);
+                return;
+            }
+
+            if (hitEffectPrefab != null) Instantiate(hitEffectPrefab, enemy.transform.position, Quaternion.identity);
+            AudioManager.PlaySfx(Sfx.EnemyExplode);
+            Destroy(enemy);
+            Destroy(gameObject);
+        }
+        else if (other.CompareTag("Boss"))
         {
             Destroy(gameObject);
         }

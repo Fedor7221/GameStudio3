@@ -1,10 +1,10 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class BossProjectile : MonoBehaviour
 {
     public float speed = 8f;
     public float lifeTime = 4f;
+    public float damage = 20f;   // More than a normal enemy (15), no longer an instant restart
     private Vector3 moveDirection;
 
     void Start()
@@ -15,7 +15,6 @@ public class BossProjectile : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
         {
-            // Calculate direction pointing directly at the player
             moveDirection = (player.transform.position - transform.position).normalized;
         }
         else
@@ -26,7 +25,6 @@ public class BossProjectile : MonoBehaviour
 
     void Update()
     {
-        // Move towards the targeted direction
         transform.position += moveDirection * speed * Time.deltaTime;
 
         // Lock Z axis to stay on the 2D plane
@@ -35,12 +33,12 @@ public class BossProjectile : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // If it hits the player, restart the game
         if (other.CompareTag("Player"))
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            PlayerMovement pm = other.GetComponent<PlayerMovement>();
+            if (pm != null) pm.TakeHit(damage, transform.position);
+            Destroy(gameObject);
         }
-        // Destroy the projectile if it hits the walls or harpoons
         else if (other.CompareTag("DeathWall") || other.CompareTag("Harpoon"))
         {
             Destroy(gameObject);

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3446695643261449905}
   - component: {fileID: 5893471470478800490}
+  - component: {fileID: 4277712539738145949}
   m_Layer: 0
   m_Name: Pearl
   m_TagString: Pearl
@@ -54,6 +55,29 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4277712539738145949
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3656993749641780211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 745ac0672b32ddd45a338b9439b67a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowLight
+  glowColor: {r: 0.85, g: 0.9, b: 1, a: 1}
+  radius: 1.4
+  intensity: 0.7
+  pulseSpeed: 4
+  pulseAmount: 0.25
+  offset: {x: 0, y: 0, z: 0}
+  onlyInDarkLevels: 1
+  drawItemAboveDarkness: 1
+  itemSortingOrder: 105
+  glowSortingOrder: 110
+  revealRadius: 1.2
 --- !u!1001 &439109693046367319
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 496772879303751149}
   - component: {fileID: 1376055792981555884}
   - component: {fileID: 2543340952324879542}
+  - component: {fileID: 103529645902406097}
   m_Layer: 0
   m_Name: OxygenTank
   m_TagString: Oxygen
@@ -71,6 +72,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FloatingItem
   floatSpeed: 3
   floatAmount: 0.15
+--- !u!114 &103529645902406097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3036920700685280188}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 745ac0672b32ddd45a338b9439b67a00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlowLight
+  glowColor: {r: 0.3, g: 1, b: 0.8, a: 1}
+  radius: 1.8
+  intensity: 0.75
+  pulseSpeed: 3
+  pulseAmount: 0.25
+  offset: {x: 0, y: 0, z: 0}
+  onlyInDarkLevels: 1
+  drawItemAboveDarkness: 1
+  itemSortingOrder: 105
+  glowSortingOrder: 110
+  revealRadius: 1.4
 --- !u!1001 &7523215705104361821
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
-// Game over screen: fades in, pauses the game, press R to restart.
+// Game over screen: fades in, pauses the game, any cabinet button restarts.
 public class GameOverUI : MonoBehaviour
 {
     public CanvasGroup panelGroup;
@@ -28,15 +28,23 @@ public class GameOverUI : MonoBehaviour
     {
         if (isShown) return;
         isShown = true;
+        shownTime = Time.unscaledTime;
         Time.timeScale = 0f;
         panelGroup.gameObject.SetActive(true);
         panelGroup.blocksRaycasts = true;
         StartCoroutine(ShowRoutine());
     }
 
+    // Arcade cabinet: no keyboard. Either cabinet button restarts (after a short pause so a
+    // button still held from gameplay doesn't skip the screen).
+    public float inputDelay = 1.2f;
+    private float shownTime;
+
     void Update()
     {
-        if (isShown && Input.GetKeyDown(KeyCode.R))
+        if (!isShown || Time.unscaledTime - shownTime < inputDelay) return;
+
+        if (Input.GetButtonDown("Jump") || Input.GetButtonDown("Fire1"))
         {
             Time.timeScale = 1f;
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
